@@ -4,4 +4,11 @@
     <dimen name="app_bar_height">200dp</dimen>
     <dimen name="item_width">200dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="recipe_card_margin">20dp</dimen>
+    <dimen name="recipe_name_margin_top">60dp</dimen>
+    <dimen name="recipe_name_margin_start">40dp</dimen>
+    <dimen name="recipe_name_text_size">36sp</dimen>
+    <dimen name="recipe_servings_text_size">18sp</dimen>
+    <dimen name="recipe_servings_margin_top">12dp</dimen>
+    <dimen name="recipe_servings_margin_start">12dp</dimen>
 </resources>
