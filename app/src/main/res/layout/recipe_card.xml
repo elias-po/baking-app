@@ -20,7 +20,7 @@
             android:id="@+id/recipe_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            card_view:srcCompat="#cbf5ff"
+            card_view:srcCompat="@color/colorRecipeImageBackground"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"/>
 
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/recipe_name_margin_start"
             android:layout_marginTop="@dimen/recipe_name_margin_top"
+            android:textColor="@color/recipe_card_text_color"
             android:textSize="@dimen/recipe_name_text_size"
             android:text="@string/sample_text"
             card_view:layout_constraintStart_toStartOf="parent"
@@ -40,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/recipe_servings_margin_top"
+            android:textColor="@color/recipe_card_text_color"
             android:textSize="@dimen/recipe_servings_text_size"
             android:text="@string/servings_text"
             card_view:layout_constraintStart_toStartOf="@id/recipe_name"
@@ -51,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/recipe_servings_margin_start"
             android:layout_marginTop="@dimen/recipe_servings_margin_top"
+            android:textColor="@color/recipe_card_text_color"
             android:textSize="@dimen/recipe_servings_text_size"
             android:text="@string/sample_text"
             card_view:layout_constraintStart_toEndOf="@id/recipe_servings_tag"
