@@ -1,6 +1,8 @@
 package com.example.elias.bakingapp.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,8 +11,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.example.elias.bakingapp.R;
+import com.example.elias.bakingapp.model.Recipe;
+import com.squareup.picasso.Picasso;
 
 public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    String TAG = "RECIPE_VIEW_HOLDER";
+
     @BindView(R.id.recipe_name)
     TextView tv_recipeName;
 
@@ -20,15 +26,36 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
     @BindView(R.id.recipe_image)
     ImageView iv_recipeImage;
 
+    private Recipe recipe;
+    private Context context;
 
     public RecipeViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(itemView);
+        itemView.setOnClickListener(this);
     }
 
-    public void bindData(){
-        //TODO: bind data here
+    public void bindData(Recipe recipe, Context context){
+        this.recipe = recipe;
+        this.context = context;
 
+        String image_url = recipe.getImage();
+        if (!image_url.isEmpty()){
+            Picasso.with(itemView.getContext())
+                    .load(image_url)
+                    .fit()
+                    .into(iv_recipeImage);
+            Log.d(TAG, "Binded image from" + image_url);
+        } else {
+            Log.d(TAG, "No image to bind!");
+        }
+
+        String recipe_name = recipe.getName();
+        double recipe_servings_count = recipe.getServingCount();
+        tv_recipeName.setText(recipe_name);
+        Log.d(TAG, "Binded name " + recipe_name);
+        tv_recipeServingsCount.setText(String.valueOf(recipe_servings_count));
+        Log.d(TAG, "Binded servings count " + recipe_servings_count);
     }
 
     @Override

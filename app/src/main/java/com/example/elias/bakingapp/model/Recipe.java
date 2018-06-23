@@ -14,7 +14,7 @@ public class Recipe {
     @SerializedName("steps")
     List<Step> steps;
     @SerializedName("servings")
-    String servingCount;
+    int servingCount;
     @SerializedName("image")
     String image;
 
@@ -35,7 +35,7 @@ public class Recipe {
         this.steps = steps;
     }
 
-    public void setServingCount(String servingCount) {
+    public void setServingCount(int servingCount) {
         this.servingCount = servingCount;
     }
 
@@ -59,7 +59,7 @@ public class Recipe {
         return steps;
     }
 
-    public String getServingCount() {
+    public int getServingCount() {
         return servingCount;
     }
 

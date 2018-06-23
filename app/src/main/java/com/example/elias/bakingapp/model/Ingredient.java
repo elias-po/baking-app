@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ingredient {
     @SerializedName("quantity")
-    int quantity;
+    double quantity;
     @SerializedName("measure")
     String measure;
     @SerializedName("ingredient")
     String ingredient;
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
@@ -22,7 +22,7 @@ public class Ingredient {
         this.ingredient = ingredient;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
