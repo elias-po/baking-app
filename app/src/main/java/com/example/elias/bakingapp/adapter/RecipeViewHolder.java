@@ -51,11 +51,11 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
         }
 
         String recipe_name = recipe.getName();
-        double recipe_servings_count = recipe.getServingCount();
+        String recipe_servings_count = String.valueOf(recipe.getServingCount());
         Log.d(TAG, "Binding name " + recipe_name);
         tv_recipeName.setText(recipe_name);
         Log.d(TAG, "Binding servings count " + recipe_servings_count);
-        tv_recipeServingsCount.setText(String.valueOf(recipe_servings_count).substring(0,1));
+        tv_recipeServingsCount.setText(recipe_servings_count);
     }
 
     @Override
