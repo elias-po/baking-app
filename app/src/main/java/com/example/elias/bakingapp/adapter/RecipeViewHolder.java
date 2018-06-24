@@ -31,7 +31,7 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
 
     public RecipeViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(itemView);
+        ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
     }
 
@@ -52,10 +52,10 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
 
         String recipe_name = recipe.getName();
         double recipe_servings_count = recipe.getServingCount();
+        Log.d(TAG, "Binding name " + recipe_name);
         tv_recipeName.setText(recipe_name);
-        Log.d(TAG, "Binded name " + recipe_name);
-        tv_recipeServingsCount.setText(String.valueOf(recipe_servings_count));
-        Log.d(TAG, "Binded servings count " + recipe_servings_count);
+        Log.d(TAG, "Binding servings count " + recipe_servings_count);
+        tv_recipeServingsCount.setText(String.valueOf(recipe_servings_count).substring(0,1));
     }
 
     @Override
