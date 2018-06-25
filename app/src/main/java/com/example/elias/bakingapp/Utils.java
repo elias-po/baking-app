@@ -1,11 +1,9 @@
 package com.example.elias.bakingapp;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.example.elias.bakingapp.adapter.RecipeListRecyclerViewAdapter;
-import com.example.elias.bakingapp.dummy.DummyContent;
+import com.example.elias.bakingapp.adapter.RecipeListAdapter;
 import com.example.elias.bakingapp.model.Recipe;
 import com.example.elias.bakingapp.rest.ApiClient;
 import com.example.elias.bakingapp.rest.ApiInterface;
@@ -31,7 +29,7 @@ public final class Utils {
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 List<Recipe> recipes = response.body();
                 Log.d(TAG, "Number of recipes received: " + recipes.size());
-                rv_reference.setAdapter(new RecipeListRecyclerViewAdapter(recipes));
+                rv_reference.setAdapter(new RecipeListAdapter(recipes));
                 Log.d(TAG, "Recipes adapter attached");
             }
 

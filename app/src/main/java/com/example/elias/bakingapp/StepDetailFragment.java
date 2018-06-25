@@ -23,6 +23,8 @@ public class StepDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
+    public static final String INGREDIENTS_KEY = "ingredients_key";
+    public static final String STEPS_KEY = "steps_key";
 
     /**
      * The dummy content this fragment is presenting.

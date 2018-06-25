@@ -4,4 +4,5 @@
     <string name="title_item_detail">Item Detail</string>
     <string name="servings_text">Servings:</string>
     <string name="base_url">https://d17h27t6h515a5.cloudfront.net/topher/</string>
+    <string name="ingredient_card_text">Ingredients</string>
 </resources>

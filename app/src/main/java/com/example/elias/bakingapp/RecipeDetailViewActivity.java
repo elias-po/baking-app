@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.elias.bakingapp.adapter.StepListAdapter;
 import com.example.elias.bakingapp.dummy.DummyContent;
 import com.example.elias.bakingapp.model.Recipe;
 
@@ -65,12 +66,13 @@ public class RecipeDetailViewActivity extends AppCompatActivity {
             mTwoPane = true;
         }
         recipe = getIntent().getExtras().getParcelable(RECIPE_KEY);
-        Log.i(TAG, "Received recipe " + recipe.getName());
+        Log.i(TAG, "Received " + recipe.getName() + " recipe");
 
 
-        View recyclerView = findViewById(R.id.item_list);
+        View recyclerView = findViewById(R.id.rv_step_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        //setupRecyclerView((RecyclerView) recyclerView);
+        ((RecyclerView) recyclerView).setAdapter(new StepListAdapter(recipe, this, mTwoPane));
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {

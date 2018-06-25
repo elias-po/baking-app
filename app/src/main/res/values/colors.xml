@@ -6,4 +6,5 @@
     <color name="cyan_light">#e0ffff</color>
     <color name="colorRecipeImageBackground">#cbf5ff</color>
     <color name="recipe_card_text_color">#000000</color>
+    <color name="step_card_text_color">#000000</color>
 </resources>

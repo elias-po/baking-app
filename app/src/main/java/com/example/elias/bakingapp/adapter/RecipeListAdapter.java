@@ -12,12 +12,12 @@ import com.example.elias.bakingapp.R;
 
 import java.util.List;
 
-public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter {
+public class RecipeListAdapter extends RecyclerView.Adapter {
 
     private List<Recipe> recipes;
     private Context context;
 
-    public RecipeListRecyclerViewAdapter(List<Recipe> rcps) {
+    public RecipeListAdapter(List<Recipe> rcps) {
         recipes = rcps;
     }
 
