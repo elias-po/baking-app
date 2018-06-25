@@ -9,12 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.elias.bakingapp.dummy.DummyContent;
+import com.example.elias.bakingapp.model.Recipe;
 
 import java.util.List;
 
@@ -33,7 +35,9 @@ public class RecipeDetailViewActivity extends AppCompatActivity {
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+    String TAG = "RECIPE_DETAIL_ACTIVITY";
     private boolean mTwoPane;
+    private Recipe recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class RecipeDetailViewActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+        recipe = getIntent().getExtras().getParcelable(RECIPE_KEY);
+        Log.i(TAG, "Received recipe " + recipe.getName());
+
 
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
