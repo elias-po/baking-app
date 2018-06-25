@@ -1,6 +1,8 @@
 package com.example.elias.bakingapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.example.elias.bakingapp.R;
+import com.example.elias.bakingapp.RecipeDetailViewActivity;
 import com.example.elias.bakingapp.model.Recipe;
 import com.squareup.picasso.Picasso;
 
@@ -60,6 +63,11 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View v) {
-
+        Log.i(TAG, "You've clicked recipe card at position " + getAdapterPosition());
+        Intent intent = new Intent(v.getContext(), RecipeDetailViewActivity.class);
+        Bundle extras = new Bundle();
+        extras.putParcelable(RecipeDetailViewActivity.RECIPE_KEY, recipe);
+        intent.putExtras(extras);
+        v.getContext().startActivity(intent);
     }
 }
