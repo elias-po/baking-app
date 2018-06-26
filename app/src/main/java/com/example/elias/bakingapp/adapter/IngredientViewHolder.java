@@ -29,7 +29,12 @@ public class IngredientViewHolder extends RecyclerView.ViewHolder {
     public void bindData(Ingredient ingredient) {
         ingredient_name_tv.setText(ingredient.getIngredient());
         Double qty = ingredient.getQuantity();
-        ingredient_quantity_tv.setText(String.valueOf(qty));
+        if (qty % 1 == 0){
+            //gets rid of .0 if a number is whole
+            ingredient_quantity_tv.setText(String.valueOf(qty).substring(0, String.valueOf(qty).indexOf(".")));
+        } else {
+            ingredient_quantity_tv.setText(String.valueOf(qty));
+        }
         String measure = ingredient.getMeasure();
         if (qty >= 2) {
             measure += "s";

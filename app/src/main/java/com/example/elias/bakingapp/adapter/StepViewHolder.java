@@ -78,11 +78,12 @@ public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                         .replace(R.id.item_detail_container, fragment)
                         .commit();
             } else {
+                // Ingredients card was chosen
                 extras.putParcelable(IngredientsFragment.INGREDIENTS_KEY, new IngredientParcelableList((ArrayList<Ingredient>) item));
-                StepDetailFragment fragment = new StepDetailFragment();
+                IngredientsFragment fragment = new IngredientsFragment();
                 fragment.setArguments(extras);
                 mParentActivity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.item_detail_container, fragment)
+                        .replace(R.id.ingredient_list_container, fragment)
                         .commit();
             }
         } else {
