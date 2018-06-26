@@ -22,4 +22,11 @@
     <dimen name="steps_rv_padding_vertical">10dp</dimen>
     <dimen name="step_short_description_text_size">24sp</dimen>
     <dimen name="step_short_description_text_margin_vertical">16dp</dimen>
+    <dimen name="ingredients_rv_padding_vertical">10dp</dimen>
+    <dimen name="ingredient_name_tv_width">320dp</dimen>
+    <dimen name="ingredient_text_size">24sp</dimen>
+    <dimen name="ingredient_item_margin_horizontal">20dp</dimen>
+    <dimen name="ingredient_item_margin_vertical">10dp</dimen>
+    <dimen name="ingredient_item_text_spacing">10dp</dimen>
+
 </resources>

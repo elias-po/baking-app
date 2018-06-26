@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.elias.bakingapp.dummy.DummyContent;
 
 /**
- * A fragment representing a single Item detail screen.
+ * A fragment representing a single Step detail screen.
  * This fragment is either contained in a {@link RecipeDetailViewActivity}
  * in two-pane mode (on tablets) or a {@link StepDetailActivity}
  * on handsets.
@@ -23,8 +23,7 @@ public class StepDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    public static final String INGREDIENTS_KEY = "ingredients_key";
-    public static final String STEPS_KEY = "steps_key";
+    public static final String STEP_KEY = "step_key";
 
     /**
      * The dummy content this fragment is presenting.
@@ -63,7 +62,7 @@ public class StepDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.step_detail)).setText(mItem.details);
         }
 
         return rootView;

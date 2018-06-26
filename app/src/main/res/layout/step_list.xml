@@ -11,4 +11,4 @@
     android:clipToPadding="false"
     app:layoutManager="LinearLayoutManager"
     tools:context=".RecipeDetailViewActivity"
-    tools:listitem="@layout/step_list_content" />
+    tools:listitem="@layout/step_card" />

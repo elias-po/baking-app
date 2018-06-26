@@ -7,4 +7,6 @@
     <color name="colorRecipeImageBackground">#cbf5ff</color>
     <color name="recipe_card_text_color">#000000</color>
     <color name="step_card_text_color">#000000</color>
+    <color name="ingredient_text_color">#000000</color>
+    <color name="ingredient_text_secondary_color">#373737</color>
 </resources>

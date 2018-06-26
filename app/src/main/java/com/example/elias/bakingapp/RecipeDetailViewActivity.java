@@ -31,12 +31,12 @@ import java.util.List;
  */
 public class RecipeDetailViewActivity extends AppCompatActivity {
     public static final String RECIPE_KEY = "recipe_key";
+    String TAG = "RECIPE_DETAIL_ACTIVITY";
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    String TAG = "RECIPE_DETAIL_ACTIVITY";
     private boolean mTwoPane;
     private Recipe recipe;
 
@@ -117,7 +117,7 @@ public class RecipeDetailViewActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.step_list_content, parent, false);
+                    .inflate(R.layout.step_list_rv_item, parent, false);
             return new ViewHolder(view);
         }
 

@@ -28,7 +28,7 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.example.elias.bakingapp.RecipeDetailViewActivity"
-        tools:listitem="@layout/step_list_content" />
+        tools:listitem="@layout/step_card" />
 
     <FrameLayout
         android:id="@+id/item_detail_container"
