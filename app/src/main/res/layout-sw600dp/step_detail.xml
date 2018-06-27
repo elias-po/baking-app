@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".StepDetailFragment">
 
     <TextView
@@ -15,39 +17,24 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="TextView" />
 
+    <ImageView
+        android:id="@+id/iv_step_thumbnail"
+        android:layout_width="800dp"
+        android:layout_height="450dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/video_placeholder"
+        android:layout_marginTop="20dp"
+        android:src="@android:drawable/ic_menu_report_image" />
+
     <TextView
         android:id="@+id/tv_step_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/video_placeholder"
-        app:layout_constraintBottom_toTopOf="@id/ll_navigation"
-        android:text="TextView" />
-
-    <LinearLayout
-        android:id="@+id/ll_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_step_thumbnail"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/btn_prev_step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/btn_next_step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
-    </LinearLayout>
+        android:text="TextView" />
 
 </android.support.constraint.ConstraintLayout>

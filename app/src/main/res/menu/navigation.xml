@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_up"
+        android:icon="@android:drawable/arrow_up_float"
+        android:title="@string/title_up"
+        android:checked="false"/>
+
+    <item
+        android:id="@+id/navigation_down"
+        android:icon="@android:drawable/arrow_down_float"
+        android:title="@string/title_down"
+        android:checked="false"/>
+
+</menu>

@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.elias.bakingapp.dummy.DummyContent;
+import com.example.elias.bakingapp.model.Step;
+import com.squareup.picasso.Picasso;
 
 /**
  * A fragment representing a single Step detail screen.
@@ -18,6 +23,8 @@ import com.example.elias.bakingapp.dummy.DummyContent;
  * on handsets.
  */
 public class StepDetailFragment extends Fragment {
+    String TAG = "STEP_DETAIL_FRAGMENT";
+
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -29,6 +36,7 @@ public class StepDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private DummyContent.DummyItem mItem;
+    private Step step;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -41,16 +49,14 @@ public class StepDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
+        if (getArguments().containsKey(STEP_KEY)) {
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
+            step = getArguments().getParcelable(STEP_KEY);
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                String newTitle = "Step " + (step.getId()+1);
+                appBarLayout.setTitle(newTitle);
             }
         }
     }
@@ -60,9 +66,67 @@ public class StepDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.step_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.step_detail)).setText(mItem.details);
+        if (step != null) {
+            TextView video_placeholder = rootView.findViewById(R.id.video_placeholder);
+            ImageView stepThumbnailIv = rootView.findViewById(R.id.iv_step_thumbnail);
+            TextView stepDescriptionTv = rootView.findViewById(R.id.tv_step_description);
+            Button prevStepBtn = rootView.findViewById(R.id.btn_prev_step);
+            Button nextStepBtn = rootView.findViewById(R.id.btn_next_step);
+
+            // Setting up video and thumbnail views
+            String video_url = step.getVideoURL();
+            String thumbnail_url = step.getThumbnailURL();
+            if(!video_url.isEmpty()) {
+                // if a video is present
+                video_placeholder.setText(video_url);
+                Log.d(TAG, "Video set from " + video_url);
+                if(stepThumbnailIv != null) {
+                    // if thumbnail image view is present, set to GONE - it is not needed
+                    stepThumbnailIv.setVisibility(View.GONE);
+                    Log.d(TAG, "Unnecessary image view hidden");
+                } else {
+                    Log.d(TAG, "No unnecessary image view to hide");
+                }
+            } else {
+                // if no video was provided
+                // hide the view
+                video_placeholder.setVisibility(View.GONE);
+                Log.d(TAG, "Video view hidden - no url provided");
+                if (!thumbnail_url.isEmpty()) {
+                    // if thumbnail was provided instead
+                    if (stepThumbnailIv != null) {
+                        // and it's view is present
+                        Picasso.with(rootView.getContext())
+                                .load(thumbnail_url)
+                                .fit()
+                                .into(stepThumbnailIv);
+                        Log.d(TAG, "Binded thumbnail from" + thumbnail_url);
+                    } else {
+                        Log.d(TAG, "Thumbnail url provided, but not it's view");
+                    }
+                } else {
+                    // if no thumbnail was NOT provided (and no video)
+                    if (stepThumbnailIv != null) {
+                        // but thumbnail's view is present, set to GONE
+                        // alternatively, can be left with 'no image' sign
+                        stepThumbnailIv.setVisibility(View.GONE);
+                        Log.d(TAG, "Thumbnail view hidden - no url provided");
+                    }
+                }
+            }
+
+            if(stepDescriptionTv != null) {
+                stepDescriptionTv.setText(step.getDescription());
+            }
+
+            if (prevStepBtn != null) {
+                //TODO: set onCLick listener, implement some logic
+            }
+
+            if (nextStepBtn != null) {
+                //TODO: do the same here
+                //Hint: first and last steps'll only have one button
+            }
         }
 
         return rootView;

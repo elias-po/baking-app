@@ -6,4 +6,7 @@
     <string name="base_url">https://d17h27t6h515a5.cloudfront.net/topher/</string>
     <string name="ingredient_card_text">Ingredients</string>
     <string name="ingredient_text_dash">−</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_up">Previous step</string>
+    <string name="title_down">Next step</string>
 </resources>

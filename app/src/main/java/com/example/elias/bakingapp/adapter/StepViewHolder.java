@@ -12,6 +12,7 @@ import com.example.elias.bakingapp.IngredientsActivity;
 import com.example.elias.bakingapp.IngredientsFragment;
 import com.example.elias.bakingapp.R;
 import com.example.elias.bakingapp.RecipeDetailViewActivity;
+import com.example.elias.bakingapp.StepDetailActivity;
 import com.example.elias.bakingapp.StepDetailFragment;
 import com.example.elias.bakingapp.model.Ingredient;
 import com.example.elias.bakingapp.model.IngredientParcelableList;
@@ -71,6 +72,7 @@ public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             // tablet layout
             Bundle extras = new Bundle();
             if(isStep) {
+                //  Step card was chosen
                 extras.putParcelable(StepDetailFragment.ARG_ITEM_ID, (Step) item);
                 StepDetailFragment fragment = new StepDetailFragment();
                 fragment.setArguments(extras);
@@ -83,7 +85,7 @@ public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                 IngredientsFragment fragment = new IngredientsFragment();
                 fragment.setArguments(extras);
                 mParentActivity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.ingredient_list_container, fragment)
+                        .replace(R.id.item_detail_container, fragment)
                         .commit();
             }
         } else {
@@ -91,7 +93,12 @@ public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             Bundle extras = new Bundle();
             Context context = v.getContext();
             if (isStep){
-
+                // Step card was chosen
+                Intent intent = new Intent(context, StepDetailActivity.class);
+                // TODO: pass the whole list of steps in order to implement navigation?
+                extras.putParcelable(StepDetailFragment.STEP_KEY, (Step) item);
+                intent.putExtras(extras);
+                context.startActivity(intent);
             } else {
                 // Ingredients card was chosen
                 Intent intent = new Intent(context, IngredientsActivity.class);

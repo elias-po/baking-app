@@ -35,7 +35,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.elias.bakingapp.RecipeDetailViewActivity" />
         </activity>
-        <activity android:name=".IngredientsActivity"></activity>
+        <activity android:name=".IngredientsActivity" />
+        <activity
+            android:name=".TestActivity"
+            android:label="@string/title_activity_test"></activity>
     </application>
 
 </manifest>
