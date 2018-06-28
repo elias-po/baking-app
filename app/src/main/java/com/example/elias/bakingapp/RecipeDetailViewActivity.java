@@ -39,6 +39,7 @@ public class RecipeDetailViewActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private Recipe recipe;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,87 +66,35 @@ public class RecipeDetailViewActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-        recipe = getIntent().getExtras().getParcelable(RECIPE_KEY);
-        Log.i(TAG, "Received " + recipe.getName() + " recipe");
+
+        if (getIntent().getExtras() != null) {
+            recipe = getIntent().getExtras().getParcelable(RECIPE_KEY);
+            Log.i(TAG, "Received " + recipe.getName() + " recipe");
+        }
+
+        recyclerView = findViewById(R.id.rv_step_list);
+
+        setTitle(recipe.getName());
+    }
 
 
-        View recyclerView = findViewById(R.id.rv_step_list);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECIPE_KEY, recipe);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        recipe = savedInstanceState.getParcelable(RECIPE_KEY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         assert recyclerView != null;
-        //setupRecyclerView((RecyclerView) recyclerView);
-        ((RecyclerView) recyclerView).setAdapter(new StepListAdapter(recipe, this, mTwoPane));
+        recyclerView.setAdapter(new StepListAdapter(recipe, this, mTwoPane));
     }
-
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new StepsRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
-    }
-
-    private static class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecyclerViewAdapter.ViewHolder> {
-
-        private final RecipeDetailViewActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
-        private final boolean mTwoPane;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(StepDetailFragment.ARG_ITEM_ID, item.id);
-                    StepDetailFragment fragment = new StepDetailFragment();
-                    fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, StepDetailActivity.class);
-                    intent.putExtra(StepDetailFragment.ARG_ITEM_ID, item.id);
-
-                    context.startActivity(intent);
-                }
-            }
-        };
-
-        StepsRecyclerViewAdapter(RecipeDetailViewActivity parent,
-                                 List<DummyContent.DummyItem> items,
-                                 boolean twoPane) {
-            mValues = items;
-            mParentActivity = parent;
-            mTwoPane = twoPane;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.step_list_rv_item, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
-
-            holder.itemView.setTag(mValues.get(position));
-            holder.itemView.setOnClickListener(mOnClickListener);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
-
-            ViewHolder(View view) {
-                super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-        }
-    }
-
 
 }

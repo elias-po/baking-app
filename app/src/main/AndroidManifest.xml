@@ -14,13 +14,11 @@
         <activity android:name=".RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RecipeDetailViewActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -35,10 +33,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.elias.bakingapp.RecipeDetailViewActivity" />
         </activity>
-        <activity android:name=".IngredientsActivity" />
         <activity
-            android:name=".TestActivity"
-            android:label="@string/title_activity_test"></activity>
+            android:name=".IngredientsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.elias.bakingapp.RecipeDetailViewActivity" />
+        </activity>
     </application>
 
 </manifest>

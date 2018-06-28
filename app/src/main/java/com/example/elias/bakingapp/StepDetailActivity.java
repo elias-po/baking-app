@@ -86,11 +86,14 @@ public class StepDetailActivity extends AppCompatActivity {
                     .load(thumbnail_url)
                     .fit()
                     .into(thumbnailIv);
+        } else {
+            thumbnailIv.setVisibility(View.GONE);
         }
 
-        // set to GONE for now
         navigation = findViewById(R.id.navigation);
         if (navigation != null) {
+            //TODO: implement navigation between steps (including Ingredients) later
+            navigation.setVisibility(View.GONE);
             navigation.getMenu().getItem(0).setCheckable(false);
             navigation.getMenu().getItem(1).setCheckable(false);
             navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -70,8 +70,6 @@ public class StepDetailFragment extends Fragment {
             TextView video_placeholder = rootView.findViewById(R.id.video_placeholder);
             ImageView stepThumbnailIv = rootView.findViewById(R.id.iv_step_thumbnail);
             TextView stepDescriptionTv = rootView.findViewById(R.id.tv_step_description);
-            Button prevStepBtn = rootView.findViewById(R.id.btn_prev_step);
-            Button nextStepBtn = rootView.findViewById(R.id.btn_next_step);
 
             // Setting up video and thumbnail views
             String video_url = step.getVideoURL();
@@ -117,15 +115,6 @@ public class StepDetailFragment extends Fragment {
 
             if(stepDescriptionTv != null) {
                 stepDescriptionTv.setText(step.getDescription());
-            }
-
-            if (prevStepBtn != null) {
-                //TODO: set onCLick listener, implement some logic
-            }
-
-            if (nextStepBtn != null) {
-                //TODO: do the same here
-                //Hint: first and last steps'll only have one button
             }
         }
 
