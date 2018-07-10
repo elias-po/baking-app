@@ -1,6 +1,7 @@
 package com.example.elias.bakingapp;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,12 @@ import android.widget.TextView;
 
 import com.example.elias.bakingapp.dummy.DummyContent;
 import com.example.elias.bakingapp.model.Step;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A fragment representing a single Step detail screen.
@@ -37,6 +43,9 @@ public class StepDetailFragment extends Fragment {
      */
     private DummyContent.DummyItem mItem;
     private Step step;
+
+    @BindView(R.id.playerView)
+    PlayerView playerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -65,6 +74,8 @@ public class StepDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.step_detail, container, false);
+        ButterKnife.bind(this, rootView);
+        playerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.exo_controls_play));
 
         if (step != null) {
             TextView video_placeholder = rootView.findViewById(R.id.video_placeholder);
