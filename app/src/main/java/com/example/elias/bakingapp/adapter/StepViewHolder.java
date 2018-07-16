@@ -73,7 +73,7 @@ public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             Bundle extras = new Bundle();
             if(isStep) {
                 //  Step card was chosen
-                extras.putParcelable(StepDetailFragment.ARG_ITEM_ID, (Step) item);
+                extras.putParcelable(StepDetailFragment.STEP_KEY, (Step) item);
                 StepDetailFragment fragment = new StepDetailFragment();
                 fragment.setArguments(extras);
                 mParentActivity.getSupportFragmentManager().beginTransaction()

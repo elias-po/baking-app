@@ -1,7 +1,9 @@
 package com.example.elias.bakingapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +17,17 @@ import android.widget.TextView;
 
 import com.example.elias.bakingapp.dummy.DummyContent;
 import com.example.elias.bakingapp.model.Step;
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -31,19 +42,14 @@ import butterknife.ButterKnife;
 public class StepDetailFragment extends Fragment {
     String TAG = "STEP_DETAIL_FRAGMENT";
 
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
     public static final String STEP_KEY = "step_key";
-
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
     private Step step;
 
+    private long playbackPosition;
+    private int currentWindow;
+    private boolean playWhenReady = true;
+
+    SimpleExoPlayer player;
     @BindView(R.id.playerView)
     PlayerView playerView;
 
@@ -59,7 +65,6 @@ public class StepDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(STEP_KEY)) {
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
             step = getArguments().getParcelable(STEP_KEY);
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
@@ -79,7 +84,7 @@ public class StepDetailFragment extends Fragment {
 
         if (step != null) {
             TextView video_placeholder = rootView.findViewById(R.id.video_placeholder);
-            ImageView stepThumbnailIv = rootView.findViewById(R.id.iv_step_thumbnail);
+            ImageView stepThumbnailIv = rootView.findViewById(R.id.iv_toolbar_thumbnail);
             TextView stepDescriptionTv = rootView.findViewById(R.id.tv_step_description);
 
             // Setting up video and thumbnail views
@@ -130,5 +135,77 @@ public class StepDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            initializePlayer();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        hideSystemUi();
+        if ((Util.SDK_INT <= 23 || player == null)) {
+            initializePlayer();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+
+    // Most of the ExoPlayer-related code was written following this codelab: https://codelabs.developers.google.com/codelabs/exoplayer-intro
+    private void initializePlayer() {
+        if (player == null) {
+            player = ExoPlayerFactory.newSimpleInstance(new DefaultRenderersFactory(getContext()),
+                    new DefaultTrackSelector(), new DefaultLoadControl());
+            playerView.setPlayer(player);
+            player.setPlayWhenReady(playWhenReady);
+            player.seekTo(currentWindow, playbackPosition);
+        }
+        MediaSource mediaSource = buildMediaSource(Uri.parse(step.getVideoURL()));
+        player.prepare(mediaSource, true, false);
+    }
+
+    private void releasePlayer() {
+        if (player != null) {
+            playbackPosition = player.getCurrentPosition();
+            currentWindow = player.getCurrentWindowIndex();
+            playWhenReady = player.getPlayWhenReady();
+            player.release();
+            player = null;
+        }
+    }
+
+    private MediaSource buildMediaSource(Uri uri) {
+        return new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory("exoplayer-codelab"))
+                .createMediaSource(uri);
+    }
+
+    @SuppressLint("InlinedApi")
+    private void hideSystemUi() {
+        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 }
