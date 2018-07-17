@@ -49,6 +49,8 @@ public class StepDetailFragment extends Fragment {
     private int currentWindow;
     private boolean playWhenReady = true;
 
+    private boolean landscapeLayout;
+
     SimpleExoPlayer player;
     @BindView(R.id.playerView)
     PlayerView playerView;
@@ -84,44 +86,68 @@ public class StepDetailFragment extends Fragment {
 
         if (step != null) {
             TextView video_placeholder = rootView.findViewById(R.id.video_placeholder);
-            ImageView stepThumbnailIv = rootView.findViewById(R.id.iv_toolbar_thumbnail);
+            ImageView stepThumbnailIv = rootView.findViewById(R.id.iv_fragment_thumbnail);
             TextView stepDescriptionTv = rootView.findViewById(R.id.tv_step_description);
-
-            // Setting up video and thumbnail views
             String video_url = step.getVideoURL();
             String thumbnail_url = step.getThumbnailURL();
-            if(!video_url.isEmpty()) {
-                // if a video is present
-                video_placeholder.setText(video_url);
-                Log.d(TAG, "Video set from " + video_url);
-                if(stepThumbnailIv != null) {
-                    // if thumbnail image view is present, set to GONE - it is not needed
-                    stepThumbnailIv.setVisibility(View.GONE);
-                    Log.d(TAG, "Unnecessary image view hidden");
+
+            if (stepDescriptionTv != null) {
+            // Vertical/tablet layout
+                landscapeLayout = false;
+                // Setting up video and thumbnail views
+                if (!video_url.isEmpty()) {
+                    // if a video is present
+                    video_placeholder.setText(video_url);
+                    if (stepThumbnailIv != null) {
+                        stepThumbnailIv.setVisibility(View.GONE);
+                        Log.d(TAG, "Unnecessary image view hidden");
+                    }
                 } else {
-                    Log.d(TAG, "No unnecessary image view to hide");
+                    // if no video was provided
+                    // hide the view
+                    video_placeholder.setVisibility(View.GONE);
+                    playerView.setVisibility(View.GONE);
+                    Log.d(TAG, "Video view hidden - no url provided");
+                    if (!thumbnail_url.isEmpty()) {
+                        // if thumbnail was provided instead
+                        if (stepThumbnailIv != null) {
+                            Picasso.with(rootView.getContext())
+                                    .load(thumbnail_url)
+                                    .fit()
+                                    .into(stepThumbnailIv);
+                            Log.d(TAG, "Binded thumbnail from" + thumbnail_url);
+                        }
+                    } else {
+                        // if no thumbnail was NOT provided (and no video)
+                        // (alternatively, can be left with 'no image' sign)
+                        if (stepThumbnailIv != null) {
+                            stepThumbnailIv.setVisibility(View.GONE);
+                        }
+                        Log.d(TAG, "Thumbnail view hidden - no url provided");
+                    }
                 }
             } else {
-                // if no video was provided
-                // hide the view
-                video_placeholder.setVisibility(View.GONE);
-                Log.d(TAG, "Video view hidden - no url provided");
-                if (!thumbnail_url.isEmpty()) {
-                    // if thumbnail was provided instead
-                    if (stepThumbnailIv != null) {
-                        // and it's view is present
+            // Landscape layout
+                landscapeLayout = true;
+                if (!video_url.isEmpty()) {
+                    // if a video is present
+                    stepThumbnailIv.setVisibility(View.GONE);
+                    Log.d(TAG, "Unnecessary image view hidden");
+
+                } else {
+                    // if no video was provided
+                    // hide the view
+                    playerView.setVisibility(View.GONE);
+                    Log.d(TAG, "Video view hidden - no url provided");
+                    if (!thumbnail_url.isEmpty()) {
+                        // if thumbnail was provided instead
                         Picasso.with(rootView.getContext())
                                 .load(thumbnail_url)
                                 .fit()
                                 .into(stepThumbnailIv);
                         Log.d(TAG, "Binded thumbnail from" + thumbnail_url);
                     } else {
-                        Log.d(TAG, "Thumbnail url provided, but not it's view");
-                    }
-                } else {
-                    // if no thumbnail was NOT provided (and no video)
-                    if (stepThumbnailIv != null) {
-                        // but thumbnail's view is present, set to GONE
+                        // if no thumbnail was NOT provided (and no video)
                         // alternatively, can be left with 'no image' sign
                         stepThumbnailIv.setVisibility(View.GONE);
                         Log.d(TAG, "Thumbnail view hidden - no url provided");
@@ -148,7 +174,9 @@ public class StepDetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hideSystemUi();
+        if (landscapeLayout) {
+            hideSystemUi();
+        }
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
