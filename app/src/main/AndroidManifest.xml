@@ -14,13 +14,14 @@
         <activity android:name=".RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RecipeDetailViewActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.elias.bakingapp.RecipeListActivity" />
@@ -34,12 +35,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.elias.bakingapp.RecipeDetailViewActivity" />
         </activity>
-        <activity
-            android:name=".IngredientsActivity">
+        <activity android:name=".IngredientsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.elias.bakingapp.RecipeDetailViewActivity" />
         </activity>
+
+        <receiver android:name=".widget.IngredientsWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ingredients_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
