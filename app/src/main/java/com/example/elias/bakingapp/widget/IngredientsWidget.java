@@ -8,7 +8,7 @@ import android.widget.RemoteViews;
 import com.example.elias.bakingapp.R;
 
 /**
- * Implementation of App Widget functionality.
+ * The Widget Provider - Implementation of App Widget functionality.
  */
 public class IngredientsWidget extends AppWidgetProvider {
 

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    The provider-info file defines several properties of the app widget,
+    including the widget's layout file, default size, configuration activity (if any),
+    preview image, and periodic update frequency.
+-->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialKeyguardLayout="@layout/ingredients_widget"
     android:initialLayout="@layout/ingredients_widget"
-    android:minHeight="60dp"
+    android:minHeight="110dp"
     android:minWidth="180dp"
     android:previewImage="@drawable/example_appwidget_preview"
     android:resizeMode="horizontal|vertical"

@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="cyan_light">#e0ffff</color>
+    <color name="white">#FFFFFF</color>
     <color name="colorRecipeImageBackground">#cbf5ff</color>
     <color name="recipe_card_text_color">#000000</color>
     <color name="step_card_text_color">#000000</color>

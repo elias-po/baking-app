@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/AppWidgetListItem">
+
+    <TextView
+        android:id="@+id/ingredient_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ingredient_widget_item_text_spacing"
+        android:textSize="@dimen/ingredient_widget_text_size"
+        android:textColor="@color/ingredient_text_color"
+        android:text="Ingredient Name" />
+
+    <TextView
+        android:id="@+id/ingredient_dash_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ingredient_widget_item_margin_horizontal"
+        android:layout_marginEnd="@dimen/ingredient_widget_item_text_spacing"
+        android:layout_below="@id/ingredient_name_tv"
+        android:textSize="@dimen/ingredient_widget_text_size"
+        android:textColor="@color/ingredient_text_color"
+        android:text="@string/ingredient_text_dash" />
+
+    <TextView
+        android:id="@+id/ingredient_quantity_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ingredient_widget_item_text_spacing"
+        android:layout_toEndOf="@id/ingredient_dash_tv"
+        android:layout_below="@id/ingredient_name_tv"
+        android:textSize="@dimen/ingredient_widget_text_size"
+        android:textColor="@color/ingredient_text_secondary_color"
+        android:text="Quantity" />
+
+    <TextView
+        android:id="@+id/ingredient_measure_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ingredient_widget_item_text_spacing"
+        android:layout_marginEnd="@dimen/ingredient_widget_item_margin_horizontal"
+        android:layout_toEndOf="@id/ingredient_quantity_tv"
+        android:layout_below="@id/ingredient_name_tv"
+        android:textSize="@dimen/ingredient_widget_text_size"
+        android:textColor="@color/ingredient_text_secondary_color"
+        android:text="Measure" />
+</RelativeLayout>

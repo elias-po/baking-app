@@ -9,6 +9,6 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="title_up">Previous step</string>
     <string name="title_down">Next step</string>
-    <string name="appwidget_text">Widget text Widget text Widget text Widget text Widget text Widget text Widget text</string>
+    <string name="appwidget_text">Widget text1 Widget text2</string>
     <string name="add_widget">Add widget</string>
 </resources>
